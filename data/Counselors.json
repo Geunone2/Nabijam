@@ -1,0 +1,65 @@
+[
+  {
+    "name": "박근원",
+    "department": "아동청소년상담사",
+    "phoneNumber": "010-3099-4421",
+    "description": "아이에게 한 걸음 다가가겠습니다.",
+    "path": "ParkGeunOne"
+  },
+  {
+    "name": "박근투",
+    "department": "중독상담사",
+    "phoneNumber": "010-3099-4422",
+    "description": "어떠한 중독이든 해결하겠습니다..",
+    "path": "ParkGeunOne"
+  },
+  {
+    "name": "박근쓰리",
+    "department": "직업상담사",
+    "phoneNumber": "010-3099-4423",
+    "description": "직업을 정하기 힘드시다구요? 저와 상담을 통해 정해보세요.",
+    "path": "ParkGeunOne"
+  },
+  {
+    "name": "박근포",
+    "department": "미술치료사",
+    "phoneNumber": "010-3099-4424",
+    "description": "그림을 통해 환자 분의 심리를 치료하겠습니다.",
+    "path": "ParkGeunOne"
+  },
+  {
+    "name": "박근파이브",
+    "department": "전문상담교사",
+    "phoneNumber": "010-3099-4425",
+    "description": "어떤 고민이든 언제든 물어보세요. 현실적인 상담을 제공해드리겠습니다.",
+    "path": "ParkGeunOne"
+  },
+  {
+    "name": "박근식스",
+    "department": "상담전문가",
+    "phoneNumber": "010-3099-4426",
+    "description": "상담을 통해 심리적 스트레스를 풀어드리겠습니다ㅣ..",
+    "path": "ParkGeunOne"
+  },
+  {
+    "name": "박근세븐",
+    "department": "기업상담사",
+    "phoneNumber": "010-3099-4427",
+    "description": "어떤 기업을 가야될 지 고민이신 분. 언제든 상담하세요.",
+    "path": "ParkGeunOne"
+  },
+  {
+    "name": "박근에잇",
+    "department": "병영생활 상담관",
+    "phoneNumber": "010-3099-4428",
+    "description": "병영 생활하면서 힘들었던 점, 언제든 귀담아 듣겠습니다.",
+    "path": "ParkGeunOne"
+  },
+  {
+    "name": "박근나인",
+    "department": "피해자 전담 상담사",
+    "phoneNumber": "010-3099-4429",
+    "description": "어떤 일이든지 피해자의 상담이 제일 우선입니다.",
+    "path": "ParkGeunOne"
+  }
+]
