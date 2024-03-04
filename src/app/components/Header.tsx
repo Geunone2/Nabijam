@@ -1,18 +1,20 @@
 import React from 'react';
 import Link from "next/link";
-import {IoHome} from "react-icons/io5";
+
+;
 import {FiUser} from "react-icons/fi";
-import {PiButterflyFill} from "react-icons/pi";
+import SearchModal from "@/app/components/SearchModal";
+import ModalButton from "@/app/components/ModalButton";
 
 export default function Header() {
     return (
         <>
-            <nav className='flex justify-end text-2xl gap-12 mx-6 mt-4 font-["Tenada"]'>
-                <Link href='/expertregister'>전문가 등록</Link>
+            <nav className='flex justify-end text-2xl gap-12 mx-6 mt-4'>
+                <Link href='/expertregister' className='font-["Tenada"]'>전문가 등록</Link>
                 <div className='border-2 left-1 -mx-6 mb-1'/>
-                <Link href='/signin' className='text-green-700'>로그인</Link>
+                <ModalButton/>
                 <div className='border-2 left-1 -mx-6 mb-1'/>
-                <Link href='/signup'>회원가입</Link>
+                <Link href='/signup' className='font-["Tenada"]'>회원가입</Link>
             </nav>
             <div className="w-full mt-2 mb-2 border-[2px] border-lightGray/30"></div>
             <header className='flex items-center p-4 font-["Tenada"]'>
