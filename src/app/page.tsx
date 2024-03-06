@@ -3,13 +3,12 @@ import MultiCarousel from "@/app/components/MultiCarousel";
 import Review from "@/app/components/Review";
 import GiftShopBox from "@/app/components/GiftShopBox";
 import React from "react";
+import Community from "@/app/components/Community";
 
 export default function Home() {
     return (
-        <>
-            <Review/>
+        <>  <MultiCarousel/>
+            <Community/>
         </>
     );
 }
-
-//<MultiCarousel/> 오류로 잠시 빼놓음

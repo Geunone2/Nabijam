@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from "next/link";
-import {Counselor} from "@/service/Counselors";
+import {Counselor} from "@/service/service";
 import Image from "next/image";
 
 type Props = { counselor: Counselor };

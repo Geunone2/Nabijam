@@ -1,5 +1,5 @@
 import React from 'react';
-import {Counselor} from "@/service/Counselors";
+import {Counselor} from "@/service/service";
 import CounselorsCard from "@/app/components/CounselorsCard";
 
 type Props = { counselors: Counselor[] };

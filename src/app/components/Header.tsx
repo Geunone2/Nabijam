@@ -17,16 +17,17 @@ export default function Header() {
                 <Link href='/signup' className='font-["Tenada"]'>회원가입</Link>
             </nav>
             <div className="w-full mt-2 mb-2 border-[2px] border-lightGray/30"></div>
+
             <header className='flex items-center p-4 font-["Tenada"]'>
                 <Link href='/'>
-                    <h1 className='text-4xl text-yellow-500 flex '>나비잠
+                    <h1 className='text-4xl  flex text-yellow-400'>나비잠
                     </h1>
                 </Link>
-                <nav className='flex text-2xl gap-20 font-semibold text-gray-600 mx-20'>
-                    <Link href='/counselors' className='hover:text-green-700 hover:scale-105'>상담하기</Link>
-                    <Link href='/comunity' className='hover:text-green-700 hover:scale-105'>커뮤니티</Link>
-                    <Link href='/diary' className='hover:text-green-700 hover:scale-105'>나비 Story</Link>
-                    <Link href='/giftshop' className='hover:text-green-700 hover:scale-105'>상담내역 확인</Link>
+                <nav className='flex text-2xl gap-20 font-semibold text-pastel-gray mx-20'>
+                    <Link href='/counselors' className='hover:text-gray-700 hover:scale-105'>상담하기</Link>
+                    <Link href='/comunity' className='hover:text-gray-700 hover:scale-105'>커뮤니티</Link>
+                    <Link href='/diary' className='hover:text-gray-700 hover:scale-105'>나비 Story</Link>
+                    <Link href='/giftshop' className='hover:text-gray-700 hover:scale-105'>상담내역 확인</Link>
                 </nav>
                 <Link href='/mypage' className='ml-auto text-3xl'> <FiUser/></Link>
             </header>
