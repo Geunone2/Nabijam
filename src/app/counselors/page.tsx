@@ -1,7 +1,7 @@
 import React from 'react';
 import {IoIosSearch} from 'react-icons/io';
 import CounselorsGrid from "@/app/components/CounselorsGrid";
-import {getAllCounselors} from "@/service/Counselors";
+import {getAllCounselors} from "@/service/service";
 
 export default async function CounselorsPage() {
     const counselors = await getAllCounselors();

@@ -10,7 +10,7 @@ export default function ModalButton() {
     const clickModal = () => setShowModal(!showModal);
     return (<>
         <div>
-            <p onClick={clickModal} className='text-emerald-700 font-[Tenada]'>로그인</p>
+            <p onClick={clickModal} className='text-pastel-green-bold font-[Tenada] hover:scale-105 hover:text-emerald-200'>로그인</p>
         </div>
         {showModal && <SearchModal clickModal={clickModal}/>}
     </>);
