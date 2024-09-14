@@ -15,5 +15,6 @@ export async function getAllCounselors(): Promise<Counselor[]> {
     return readFile(filePath, 'utf-8')
         .then<Counselor[]>(JSON.parse)
     // 날짜 순으로 정렬
-    // .then(counselors => counselors.sort((a, b) => (a.date  > b.date ? -1 : 1)))
+    // .then(consoles => consoles.sort((a, b) => (a.date  > b.date ? -1 : 1)))
 }
+

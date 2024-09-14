@@ -11,3 +11,9 @@ html, body {
     font-family: "Tenada";
     src: url("../../TENADA_font/Tenada.ttf");
 }
+
+@layer components {
+    .skeleton {
+        @apply animate-shimmer bg-gradient-custom bg-custom;
+    }
+}
