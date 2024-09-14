@@ -9,15 +9,32 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                'pastel-green-bold': '#b5d081',
-                'pastel-green-semi': '#cfd99a',
-                'pastel-brown': '#dad49b',
-                'pastel-yellow': '#f8e6ac',
-                'pastel-apricot': '#fcefd4',
-                'pastel-gray': '#cfcfc4',
+                'yellow-1': '#E05F00',
+                'yellow-2': '#FAAD00',
+                'yellow-3': '#FFC746',
+                'yellow-4': '#FFE169',
+                'yellow-5': '#FDEB87',
+                'yellow-6': '#FAAC01',
+                'footer': '#616161',
+                'user-gray': '#D9D9D9',
+            },
+            animation: {
+                shimmer: 'shimmer 1.5s infinite linear',
+            },
+            keyframes: {
+                shimmer: {
+                    '0%': {backgroundPosition: '200%'},
+                    '100%': {backgroundPosition: '-200%'},
+                },
+            },
+            backgroundImage: {
+                'gradient-custom': 'linear-gradient(to right, #D9D9D9 0%, #EDEEF1 50%, #D9D9D9 100%)',
+            },
+            backgroundSize: {
+                custom: '300% 100%',
             },
         },
     },
-    plugins: [],
+    plugins: [require("tailwind-scrollbar-hide")],
 };
 export default config;
