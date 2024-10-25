@@ -1,4 +1,3 @@
-import React from 'react';
 import {getCookie} from "cookies-next";
 
 export interface ConsoleListProps {
@@ -9,6 +8,7 @@ export interface ConsoleListProps {
     content: string;
     isAnswered: boolean;
     writerNickname: string;
+    writerProfile: string;
 }
 
 export default async function ConsoleListAll() {
@@ -34,7 +34,8 @@ export default async function ConsoleListAll() {
             categories: item.categories,
             content: item.content,
             isAnswered: item.isAnswered,
-            writerNickname: item.writerNickname
+            writerNickname: item.writerNickname,
+            writerProfile: item.writerProfile,
         }))
     } else {
         console.error('응답 실패');

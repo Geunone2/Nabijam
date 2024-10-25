@@ -13,6 +13,7 @@
     "@mui/material": "^5.15.10",
     "@mui/system": "^5.15.13",
     "@svgr/webpack": "^8.1.0",
+    "@types/react-responsive": "^8.0.8",
     "axios": "^1.6.8",
     "cookies-next": "^4.1.1",
     "js-base64": "^3.7.7",
@@ -22,6 +23,7 @@
     "react-dom": "^18",
     "react-icons": "^5.0.1",
     "react-material-ui-carousel": "^3.4.2",
+    "react-responsive": "^10.0.0",
     "sweetalert2": "^11.13.3",
     "tailwind-scrollbar-hide": "^1.1.7"
   },

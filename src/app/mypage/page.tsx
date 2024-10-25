@@ -1,8 +1,10 @@
 import React from 'react';
+import ProfileCategory from "@/app/components/mypage/ProfileCategory";
+import MyProfile from "@/app/components/mypage/MyProfile";
 
 export default function MyPage() {
 
-    return (<div>
-        마이페이지
-    </div>);
+    return (<>
+        <ProfileCategory/>
+    </>);
 }

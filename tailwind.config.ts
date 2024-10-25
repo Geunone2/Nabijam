@@ -33,6 +33,10 @@ const config: Config = {
             backgroundSize: {
                 custom: '300% 100%',
             },
+
+            boxShadow: {
+                custom: '18px 0 5px -5px #D9D9D9;'
+            }
         },
     },
     plugins: [require("tailwind-scrollbar-hide")],

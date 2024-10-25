@@ -1,5 +1,5 @@
 'use client'
-import type {Metadata} from "next";
+
 import {Inter} from "next/font/google";
 import "./globals.css";
 import {useEffect, useState} from "react";
@@ -24,10 +24,12 @@ export default function RootLayout({
     const [status, setStatus] = useState(false);
     const [nickname, setNickname] = useState("");
     const [role, setRole] = useState("");
+    const [profile, setProfile] = useState("");
     useEffect(() => {
         const token = getCookie('accessToken')
         const username = getCookie('nickname')
         const role = getCookie('Role');
+        const profile = getCookie('Profile');
 
         if (token == null) {
             setStatus(false);
@@ -41,20 +43,24 @@ export default function RootLayout({
             setRole("");
         }
 
-        if(username != null ) {
+        if(username != null) {
             setNickname(username.toString());
+        }
+
+        if(profile != null) {
+            setProfile(profile.toString());
         }
     }, []);
 
     return (
         <html lang="en" className={inter.className}>
         <head>
-            <link rel="icon" href="/src/app/favicon.ico"/>
+            <link rel="icon" href="/favicon.ico" as="image"/>
             <title>나비잠 - 온라인 정신상담 웹 플랫폼</title>
         </head>
         <body className='flex flex-col w-full mx-auto'>
         <header>
-            <Header nickname={nickname} status={status} role={role}/>
+            <Header nickname={nickname} status={status} role={role} profile={profile}/>
         </header>
         <main className='grow'>{children}</main>
         <footer>

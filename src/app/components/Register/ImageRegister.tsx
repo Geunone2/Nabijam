@@ -3,9 +3,13 @@
 import React, {useRef, useState} from 'react';
 import Image from 'next/image'
 
-export default function ImageRegister() {
+interface ImageUrlProps {
+    ImageUrl: (data: string) => void;
+}
 
-    const [profile, setProfile] = useState('/images/Profile.png');
+export default function ImageRegister({ImageUrl}: ImageUrlProps) {
+
+    const [profile, setProfile] = useState('/images/Profile.jpeg');
     const fileInput = useRef(null);
 
     const handleImage = async (e) => {
@@ -37,15 +41,15 @@ export default function ImageRegister() {
             }
 
             const data = await res.json();
-
-            const Profile_URL = data.data.url
+            const Profile_URL = data.data;
+            ImageUrl(Profile_URL);
         } catch (e) {
-            console.error(e.res);
+            console.log(e);
         }
     }
     return (<div>
         <a href="#" onClick={() => fileInput.current.click()}>
-            <Image src={profile} width={150} height={150} alt="프로필 이미지"/>
+            <Image src={profile} width={250} height={250} alt="프로필 이미지"/>
         </a>
         <input type="file" name="Profile_URL" id="input-file" accept='image/*'
                style={{display: "none"}} ref={fileInput} onChange={handleImage}/>

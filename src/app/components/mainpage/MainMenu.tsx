@@ -18,7 +18,7 @@ export default function MainMenu() {
         <div className='flex gap-1 '>
 
             { role === 'LISTENER' ?
-                (<Link href='/consoles' className='flex flex-col items-center '>
+                (<Link href='/comforts' className='flex flex-col items-center '>
                 <MdOutlineVolunteerActivism
                     className='text-6xl border-2 rounded-full border-yellow-3 p-2 hover:bg-yellow-3 hover:scale-105 hover:text-white'/>
                 <p className='text-sm'>위로하기</p>
@@ -65,12 +65,3 @@ export default function MainMenu() {
     </div>);
 
 }
-
-
-/*
-*             <Link href='/comforts' className='flex flex-col items-center '>
-                <MdOutlineVolunteerActivism
-                    className='text-6xl border-2 rounded-full border-yellow-3 p-2 hover:bg-yellow-3 hover:scale-105 hover:text-white'/>
-                <p className='text-sm'>위로받기</p>
-            </Link>
-*/

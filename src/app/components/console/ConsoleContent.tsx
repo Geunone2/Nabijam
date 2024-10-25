@@ -5,12 +5,18 @@ import ConsoleListAll, {ConsoleListProps} from "@/app/components/console/Console
 import {MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank} from 'react-icons/md';
 import ConsoleSearch from "@/app/components/console/ConsoleSearch";
 import {FaSortNumericDown, FaSortNumericUp} from "react-icons/fa";
-import ConsoleDetail from './ConsoleDetail';
+import Pagination from "@mui/material/Pagination";
+import {useRouter} from "next/navigation";
+import {useMobile} from "@/service/MediaQuery";
 
 export default function ConsoleContent() {
-    const [showConsoleDetail, setShowConsoleDetail] = useState(false);
+
+    const isMobile = useMobile();
+
     const [consoles, setConsoles] = useState<ConsoleListProps[]>([]);
-    const [selectedComfort, setSelectedComfort] = useState<ConsoleListProps | null>(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [consolesPerPage] = useState(10);
+    const router = useRouter();
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
     const sortConsoles = (data: ConsoleListProps[], order: 'asc' | 'desc') => {
@@ -35,100 +41,136 @@ export default function ConsoleContent() {
         fetchConsoles();
     }, []);
 
+    const handlePageChange = (e: React.ChangeEvent<unknown>, page: number) => {
+        setCurrentPage(page);
+    }
+
+    const currentConsoles = consoles.slice(
+        (currentPage - 1) * consolesPerPage,
+        currentPage * consolesPerPage
+    );
 
     const handleSortOrder = (order: 'asc' | 'desc') => {
         setSortOrder(order);
         setConsoles(sortConsoles([...consoles], order));
     }
 
-    const handleClick = (console: ConsoleListProps) => {
-        setShowConsoleDetail(true);
-        setSelectedComfort(console);
+    const handleClick = (id: string) => {
+        router.push(`/comforts/${id}`);
     }
 
     return (
         <>
-            <div className='flex flex-col text-center mt-20'>
-                <h1 className='text-5xl font-[Tenada]'>위로하기</h1>
+            <div className='flex flex-col text-center'>
+                <h1 className={`font-bold mt-8 ${isMobile ? 'text-5xl' : 'text-7xl'}`}>위로 하기</h1>
+                {isMobile ? (
+                    <span className='mt-4 text-2xl'>내용은 비밀이 보장되므로,<br/>작은 고민이라도 괜찮아요.</span>) : (
+                    <span className='mt-4 text-3xl'>내용은 비밀이 보장되므로, 작은 고민이라도 괜찮아요.</span>)}
+                <div
+                    className={`border-2 border-yellow-6 ${isMobile ? 'w-[95%]' : 'w-[75%]'} h-full mx-auto mt-12 rounded-lg flex flex-col`}>
+                    <div>
+                        <div className='flex flex-row items-center justify-between p-4'>
+                            <p className='font-[Tenada] text-5xl mx-2 text-center'>등록된 글 목록</p>
+                            <ConsoleSearch/>
+                        </div>
 
-                {showConsoleDetail && selectedComfort ? (
-                    <ConsoleDetail
-                        id={selectedComfort.id}
-                        title={selectedComfort.title}
-                        categories={selectedComfort.categories}
-                        content={selectedComfort.content}
-                        writerNickname={selectedComfort.writerNickname}
-                    />
-                ) : (
-                    <>
-                        {/* 등록된 글 목록 & 검색 */}
-                        <div className='border-2 border-yellow-6 w-[70%] h-screen mx-auto mt-12 rounded-lg'>
-                            <div className='flex flex-row items-center justify-between p-4'>
-                                <p className='font-[Tenada] text-2xl mx-2 text-center'>등록된 글 목록</p>
-                                <ConsoleSearch/>
-                            </div>
-
-                            {/* 카테고리, 제목, 작성일, 답변여부 */}
-                            <div className='flex flex-col items-center p-2 text-xl font-bold'>
-                                <div className='flex w-full'>
-                                    {/* 왼쪽 섹션: 카테고리 제목 */}
-                                    <div className='flex w-1/2'>
-                                        <p className='w-1/2 text-start mx-8'>카테고리</p>
-                                        <p className='w-1/2 text-center'>제목</p>
-                                    </div>
-                                    {/* 오른쪽 섹션: 작성일 답변여부 */}
-                                    <div className='flex w-1/2 justify-end gap-32'>
-                                        <div className='flex flex-row'>
-                                            <p className='text-center'>작성일</p>
-                                            {sortOrder === 'desc' ? (
-                                                <button onClick={() => handleSortOrder('asc')}
-                                                        className=' text-2xl mx-1'>
-                                                    <FaSortNumericDown/>
-                                                </button>
-                                            ) : (
-                                                <button onClick={() => handleSortOrder('desc')}
-                                                        className=' text-2xl mx-1'>
-                                                    <FaSortNumericUp/>
-                                                </button>
-                                            )}
+                        {isMobile ? (<>
+                                <div className='flex flex-row w-full text-3xl font-bold mb-1'>
+                                    <p className='w-3/4 text-start mx-2'>제목</p>
+                                    <p className='w-1/4 text-end mx-2'>답변여부</p>
+                                </div>
+                            </>
+                        ) : (<>
+                                <div className='flex flex-col items-center p-2 text-4xl font-bold'>
+                                    <div className='flex w-full'>
+                                        <div className='flex w-1/2'>
+                                            <p className='w-1/2 text-start mx-8'>카테고리</p>
+                                            <p className='w-1/2 text-center'>제목</p>
                                         </div>
-                                        <p className=' text-center'>답변여부</p>
+                                        <div className='flex w-1/2 justify-end gap-32'>
+                                            <div className='flex flex-row'>
+                                                <p className='text-center'>작성일</p>
+                                                {sortOrder === 'desc' ? (
+                                                    <button onClick={() => handleSortOrder('asc')}
+                                                            className=' text-4xl mx-1'>
+                                                        <FaSortNumericDown/>
+                                                    </button>
+                                                ) : (
+                                                    <button onClick={() => handleSortOrder('desc')}
+                                                            className=' text-4xl mx-1'>
+                                                        <FaSortNumericUp/>
+                                                    </button>
+                                                )}
+                                            </div>
+                                            <p className=' text-center'>답변여부</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </>
+                        )}
 
-                            <div>
-                                {consoles.map((console) => (
-                                    <div
-                                        key={console.id}
-                                        onClick={() => handleClick(console)}
-                                        className='table border-collapse border border-solid w-full'
-                                    >
-                                        <div className='flex flex-col items-center p-2 text-xl'>
+
+                        <div>
+                            {currentConsoles.map((console, index) => (
+                                <div
+                                    key={console.id}
+                                    onClick={() => handleClick(console.id)}
+                                    className={`table w-full border-b border-solid border-gray-300 `}
+                                >
+                                    {isMobile ? (<>
+                                        <div className='flex flex-row text-2xl h-16 items-center justify-between'>
+                                            <div className='text-start text-ellipsis whitespace-nowrap overflow-hidden mx-2'>
+                                                {console.title.length > 25 ? console.title.slice(0, 25) + '...' : console.title}
+                                            </div>
+                                            <div className=''>
+                                                {console.isAnswered ? (
+                                                    <MdOutlineCheckBox className='text-5xl text-yellow-6'/>
+                                                ) : (
+                                                    <MdOutlineCheckBoxOutlineBlank
+                                                        className='text-5xl text-yellow-6'/>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </>) : (<>
+                                        <div className='flex flex-col items-center p-2 text-3xl h-16'>
                                             <div className='flex w-full'>
-                                                {/* 왼쪽 섹션: 카테고리 제목 */}
+                                                {/* 카테고리와 제목 */}
                                                 <div className='flex w-1/2'>
-                                                    <p className='w-1/2 text-start mx-5 text-yellow-1 font-semibold'>{console.categories.join(', ')}</p>
-                                                    <h1 className='w-1/2 text-center text-ellipsis whitespace-nowrap overflow-hidden -mx-4'>{console.title}</h1>
+                                                    <p className='w-1/2 text-start mx-5 text-yellow-1 font-semibold'>
+                                                        {console.categories.join(', ')}
+                                                    </p>
+                                                    <h1 className='w-1/2 text-start text-ellipsis whitespace-nowrap overflow-hidden'>
+                                                        {console.title}
+                                                    </h1>
                                                 </div>
-                                                {/* 오른쪽 섹션: 작성일 답변여부 */}
-                                                <div className='flex w-1/2 justify-end gap-40 mx-4'>
-                                                    <p>{new Date(console.createdAt).toLocaleDateString().replace(/\.$/, '')}</p>
+
+                                                {/* 작성일과 답변여부 */}
+                                                <div className='flex w-1/2 justify-end gap-20'>
+                                                    <p className='w-1/2 text-start'>{console.createdAt}</p>
                                                     {console.isAnswered ? (
-                                                        <MdOutlineCheckBox className="items-center text-center text-yellow-6"/>
+                                                        <MdOutlineCheckBox className='text-5xl text-yellow-6'/>
                                                     ) : (
                                                         <MdOutlineCheckBoxOutlineBlank
-                                                            className="items-center text-center text-yellow-6"/>
+                                                            className='text-5xl text-yellow-6'/>
                                                     )}
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
+
+                                    </>)}
+                                </div>
+                            ))}
                         </div>
-                    </>
-                )}
+                    </div>
+
+                    <div className='flex justify-center p-4'>
+                        <Pagination
+                            count={Math.ceil(consoles.length / consolesPerPage)}
+                            page={currentPage}
+                            onChange={handlePageChange}
+                        />
+                    </div>
+                </div>
             </div>
         </>
     );

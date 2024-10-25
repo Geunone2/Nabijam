@@ -1,16 +1,17 @@
 'use client'
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import React, {useState} from 'react';
+import {useRouter} from 'next/navigation';
 import AuthCheckNickName from '@/app/components/authcheck/AuthCheckNickName';
 import AuthCheckEmail from '@/app/components/authcheck/AuthCheckEmail';
 import Swal from 'sweetalert2';
 import ImageRegister from '@/app/components/Register/ImageRegister';
 import useInput from '@/service/useInput';
-import Image from 'next/image'
+import {useMobile} from "@/service/MediaQuery";
 
 export default function SignUpPage() {
+
+    const isMobile = useMobile();
     const email = useInput('');
     const nickname = useInput('');
     const password = useInput('');
@@ -25,8 +26,8 @@ export default function SignUpPage() {
 
     const [profileURL, setProfileURL] = useState<string>('');
 
-    const handleImageUpload = (url: string) => {
-        setProfileURL(url);
+    const handleImageUpload = (data: string) => {
+        setProfileURL(data);
     };
 
     const handleCheckNickname = async () => {
@@ -81,7 +82,7 @@ export default function SignUpPage() {
             nickname: nickname.value,
             password: password.value,
             checkPassword: checkPassword.value,
-            profile: profileURL // 프로필 이미지 URL 추가
+            profile: profileURL || `/images/Profile.jpeg`,
         };
 
         try {
@@ -123,98 +124,113 @@ export default function SignUpPage() {
 
     return (
         <>
-            <Link href='/'>
-                <Image src='/images/TextLogo4.svg' alt="icon" className='mx-auto -mb-32 -mt-8' width={400} height={400} priority/>
-            </Link>
             <form onSubmit={handleSubmit}>
-                <div className='flex flex-col h-full mt-10 text-nowrap w-[60%] mx-auto'>
+                <div className={`flex flex-col h-full mt-10 text-nowrap ${isMobile ? 'w-full' : 'w-[60%]'}  mx-auto`}>
                     <div className='px-6 py-8 rounded border-yellow-6 border-2 shadow-xl text-black w-full'>
-                        <h2 className='font-semibold text-4xl text-center mb-4'>회원가입</h2>
-                        <div className="w-full mt-1 mb-12 border-[1px] border-lightGray/30"></div>
+                        <h2 className='font-semibold text-7xl text-center mb-4'>회원가입</h2>
+                        <div className='flex flex-col'>
+                            <div className="w-full mt-1 border-[1px] border-lightGray/30"></div>
+                            <p className='text-2xl mt-1 self-end'><span className='text-red-500'>*</span> 은 필수 항목입니다.
+                            </p>
+                        </div>
                         <div className='gap-16 flex flex-col'>
                             {/* 프로필 이미지 업로드 */}
                             <div className='flex flex-col items-center gap-2'>
                                 <div className='flex'>
-                                    <ImageRegister />
+                                    <ImageRegister ImageUrl={handleImageUpload}/>
                                 </div>
-                                <label htmlFor='profileImage' className='text-ms text-center font-semibold w-32'>프로필 설정</label>
+                                <label htmlFor='profileImage' className='text-4xl text-center font-semibold w-fit'>프로필
+                                    설정</label>
                             </div>
-                            {/* 이메일 입력란 */}
-                            <div className='flex items-center gap-2 -mb-6 -mt-4'>
-                                <label htmlFor='email' className='text-ms font-semibold w-32 text-wrap -mt-6'>아이디(이메일)<span className='text-red-500'>*</span></label>
-                                <div className='w-full mx-2'>
-                                    <div className='flex items-center gap-1'>
-                                        <input
-                                            className='block border border-yellow-6 w-[84%] p-3 rounded placeholder:text-sm'
-                                            pattern='^[^\s@]{1,50}@[^\s@]{1,50}\S*$'
-                                            title='잘못된 아이디(이메일) 형식입니다. 다시 입력해주세요.'
-                                            type="text"
-                                            {...email}
-                                            placeholder="아이디를 입력해주세요"
-                                        /><br/>
-                                        <button
-                                            type="button"
-                                            onClick={handleCheckEmail}
-                                            className='border p-3 rounded border-yellow-6'>
-                                            중복 확인
-                                        </button>
+
+                            {/*아이디(이메일)*/}
+
+                            <div className='flex flex-col gap-12 w-full'>
+                                <div className='flex items-center'>
+                                    <label htmlFor='email'
+                                           className={` ${isMobile ? 'text-2xl' : 'text-3xl'}  font-semibold w-40 text-wrap`}>아이디<br/>(이메일)<span
+                                        className='text-red-500'>*</span></label>
+
+                                    <div className='w-full'>
+                                        <div className='flex items-center gap-1'>
+                                            <input
+                                                className={`block border border-yellow-6 p-5 w-full rounded ${isMobile ? ' placeholder:text-lg':' placeholder:text-xl'}`}
+                                                pattern='^[^\s@]{1,50}@[^\s@]{1,50}\S*$'
+                                                title='잘못된 아이디(이메일) 형식입니다. 다시 입력해주세요.'
+                                                type="text"
+                                                {...email}
+                                                placeholder="아이디를 입력해주세요"/><br/>
+
+                                            <button
+                                                type="button"
+                                                onClick={handleCheckEmail}
+                                                className='border p-4 text-2xl rounded border-yellow-6'>
+                                                중복 확인
+                                            </button>
+                                        </div>
+                                        <span
+                                            className={`${emailValid === false ? 'text-red-500 text-2xl' : 'text-green-500 text-2xl'}`}>{emailMessage}</span>
                                     </div>
-                                    <span className={`mt-2 ml-2 ${emailValid === false ? 'text-red-500' : 'text-green-500'}`}>{emailMessage}</span>
                                 </div>
                             </div>
+
                             {/* 닉네임 입력란 */}
-                            <div className='flex items-center gap-2 -mb-6'>
-                                <label htmlFor='userName' className='text-ms font-semibold w-32 -mt-6'>닉네임<span className='text-red-500'>*</span></label>
-                                <div className='w-full mx-2'>
+                            <div className='flex items-center'>
+                                <label htmlFor='userName'
+                                       className={` ${isMobile ? 'text-2xl' : 'text-3xl'}  font-semibold w-40 text-wrap`}>닉네임<span
+                                    className='text-red-500'>*</span></label>
+
+                                <div className='w-full'>
                                     <div className='flex items-center gap-2'>
                                         <input
                                             id="userName"
-                                            className='block border border-yellow-6 w-[84%] p-3 rounded placeholder:text-sm'
+                                            className={`block border border-yellow-6 p-5 w-full rounded ${isMobile ? ' placeholder:text-lg':' placeholder:text-xl'}`}
                                             type="text"
                                             pattern='^[a-zA-Z가-힣]{2,8}$'
                                             {...nickname}
                                             title='닉네임을 2~8글자로 입력해주세요.'
-                                            placeholder="닉네임을 입력해주세요"
-                                        />
+                                            placeholder="닉네임을 입력해주세요"/>
                                         <button
                                             type="button"
                                             onClick={handleCheckNickname}
-                                            className='border p-3 rounded border-yellow-6'>
+                                            className='border p-4 text-2xl rounded border-yellow-6'>
                                             중복 확인
                                         </button>
                                     </div>
-                                    <span className={`mt-2 ml-2 ${nicknameValid === false ? 'text-red-500' : 'text-green-500'}`}>{nicknameMessage}</span>
+                                    <span
+                                        className={` ${nicknameValid === false ? 'text-red-500 text-2xl' : 'text-green-500 text-2xl'}`}>{nicknameMessage}</span>
                                 </div>
                             </div>
                             {/* 비밀번호 입력란 */}
                             <div className='flex items-center'>
-                                <label htmlFor='password' className='text-ms font-semibold w-32'>비밀번호<span className='text-red-500'>*</span></label>
+                                <label htmlFor='password'
+                                       className={` ${isMobile ? 'text-2xl' : 'text-3xl'}  font-semibold w-40 text-wrap`}>비밀번호<span
+                                    className='text-red-500'>*</span></label>
+
                                 <input
                                     id="password"
-                                    className='block border border-yellow-6 w-[82%] p-3 rounded placeholder:text-sm'
+                                    className={`block border border-yellow-6 p-5 w-full rounded ${isMobile ? ' placeholder:text-lg':' placeholder:text-xl'}`}
                                     type="password"
                                     pattern='^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,14}$'
                                     title='잘못된 비밀번호 형식입니다. 다시 입력해주세요.'
                                     {...password}
-                                    placeholder="비밀번호를 입력해주세요(영어/숫자/특수문자 1개씩 필수 입력)"
-                                /><br/>
+                                    placeholder="비밀번호를 입력해주세요(영여/숫자/특수문자 1개씩 필수 입력)"/><br/>
                             </div>
                             {/* 비밀번호 확인 입력란 */}
                             <div className='flex items-center'>
-                                <label htmlFor='checkPassword' className='text-ms font-semibold w-32 text-wrap'>비밀번호 재확인<span className='text-red-500'>*</span></label>
-                                <div className='flex flex-col text-wrap w-[82%]'>
-                                    <input
-                                        id="checkPassword"
-                                        className='block border border-yellow-6 w-full p-3 rounded placeholder:text-sm'
-                                        type="password"
-                                        {...checkPassword}
-                                        placeholder="비밀번호를 다시 입력해주세요"
-                                    />
-                                </div>
+                                <label htmlFor='checkPassword'
+                                       className={` ${isMobile ? 'text-2xl' : 'text-3xl'}  font-semibold w-40 text-wrap`}>비밀번호<br/>재확인<span
+                                    className='text-red-500'>*</span></label>
+                                <input
+                                    id="checkPassword"
+                                    className={`block border border-yellow-6 p-5 w-full rounded ${isMobile ? ' placeholder:text-lg':' placeholder:text-xl'}`}
+                                    type="password"
+                                    {...checkPassword}
+                                    placeholder="비밀번호를 다시 입력해주세요"/>
                             </div>
                         </div>
                         <button
-                            className='w-full mt-12 bg-yellow-400 text-center py-3 rounded text-black text-2xl font-[Tenada] hover:scale-105 hover:bg-yellow-500 my-1'
+                            className='w-full mt-12 bg-yellow-400 text-center h-24 rounded text-black text-5xl font-[Tenada] hover:scale-105 hover:bg-yellow-500  items-center'
                             type="submit">가입하기
                         </button>
                     </div>
