@@ -7,8 +7,6 @@ import {getCookie} from "cookies-next";
 import Header from "./components/mainpage/Header";
 import Footer from "./components/mainpage/Footer";
 
-const inter = Inter({subsets: ["latin"]});
-
 /*
 export const metadata: Metadata = {
     title: "나비잠 - 비대면 익명 심리상담 플랫폼",
@@ -53,7 +51,7 @@ export default function RootLayout({
     }, []);
 
     return (
-        <html lang="en" className={inter.className}>
+        <html lang="en">
         <head>
             <link rel="icon" href="/favicon.ico" as="image"/>
             <title>나비잠 - 온라인 정신상담 웹 플랫폼</title>

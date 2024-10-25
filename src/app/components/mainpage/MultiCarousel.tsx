@@ -9,7 +9,6 @@ import {useMobile, usePC} from "@/service/MediaQuery"; // 반응형 미디어 �
 
 export default function MultiCarousel() {
     const isMobile = useMobile();
-    const isPC = usePC();
 
     const items = [
         {
@@ -80,7 +79,7 @@ export default function MultiCarousel() {
                                 {e.description}
                             </p>
                         </div>
-                        <img src={e.image} alt="Image"
+                        <Image src={e.image} alt="Image" width={300} height={300}
                              className={isMobile ? 'h-[300px] w-[300px] object-cover' : 'h-[500px] w-[500px] object-cover'}/>
                     </div>
                 ))}

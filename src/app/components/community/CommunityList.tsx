@@ -7,7 +7,7 @@ import {CiHeart} from 'react-icons/ci';
 import {FaRegCommentAlt, FaRegHeart} from "react-icons/fa";
 import {useMobile} from "@/service/MediaQuery";
 
-export default function () {
+export default function CommunityList() {
     const isMobile = useMobile();
 
     const [communities, setCommunities] = useState<CommunityListProps[]>([]);

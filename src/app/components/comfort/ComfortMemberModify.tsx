@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import ComfortListDetail from "@/app/components/comfort/ComfortListlDetail";
 import {getCookie} from "cookies-next";
 import {useParams, useRouter} from "next/navigation";
@@ -14,21 +14,25 @@ export default function ComfortMemberModify() {
     const {id} = useParams();
     const router = useRouter();
 
+    const handleChange = useCallback((titleValue: string, contentValue: string) => {
+        title.onChange({ target: { value: titleValue } });
+        content.onChange({ target: { value: contentValue } });
+    }, [title, content]);
+
     useEffect(() => {
         const fetchComfort = async () => {
             try {
                 //@ts-ignore
                 const data = await ComfortListDetail(BigInt(id));
                 if (data) {
-                    title.onChange({target: {value: data.title}});
-                    content.onChange({target: {value: data.content}});
+                    handleChange(data.title, data.content);
                 }
             } catch (err) {
                 console.error('위로받기 글 가져오기 실패');
             }
         };
         fetchComfort();
-    }, [id]);
+    }, [id, handleChange]);
 
     const handleClick = () => {
         if (id) {

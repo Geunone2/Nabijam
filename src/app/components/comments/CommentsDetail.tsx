@@ -5,7 +5,6 @@ import {useMobile} from "@/service/MediaQuery";
 
 export default function CommentsDetail({consoleId, onCommentCount}) {
     const [comments, setComments] = useState<CommentsDetailProps[]>([]);
-    const [role, setRole] = useState("");
     const isMobile = useMobile();
 
     useEffect(() => {
@@ -15,6 +14,8 @@ export default function CommentsDetail({consoleId, onCommentCount}) {
                 try {
                     const data = await CommentsList(consoleId);
                     setComments(data);
+
+                    // eslint-disable-next-line react-hooks/exhaustive-deps
                     onCommentCount(data.length);
                 } catch (err) {
                     console.error("댓글을 불러오는 데 실패했습니다.");

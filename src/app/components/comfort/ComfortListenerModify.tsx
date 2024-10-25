@@ -1,7 +1,7 @@
 "use client";
 
 import useInput from "@/service/useInput";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useParams, useRouter} from "next/navigation";
 import {getCookie} from "cookies-next";
 import Swal from "sweetalert2";
@@ -15,6 +15,11 @@ export default function ComfortListenerModify() {
     const [ConsoleId, setConsoleId] = useState<string | null>(null);  // 수정할 답변의 ID
     const nickname = getCookie("nickname");  // 쿠키에서 닉네임을 가져옴
 
+    const handleContentChange = useCallback((value) => {
+        content.onChange({target: {value}});
+    }, [content])
+
+
     useEffect(() => {
         const fetchComfort = async () => {
             try {
@@ -24,7 +29,7 @@ export default function ComfortListenerModify() {
                     const consoleToModify = data.consoles.find((console: any) => console.nickname === nickname);  // 닉네임이 일치하는 답변 찾기
                     if (consoleToModify) {
                         setConsoleId(consoleToModify.id);  // 해당 콘솔 ID 설정
-                        content.onChange({target: {value: consoleToModify.content}});  // 해당 콘솔 내용 설정
+                        handleContentChange(consoleToModify.content);
                     }
                 }
             } catch (err) {
@@ -32,7 +37,7 @@ export default function ComfortListenerModify() {
             }
         };
         fetchComfort();
-    }, [id, nickname]);
+    }, [id, nickname, handleContentChange]);
 
     const handleBackClick = () => {
         if (id) {

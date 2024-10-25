@@ -1,6 +1,6 @@
 'use client';
 import useInput from '@/service/useInput';
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {useParams, useRouter} from "next/navigation";
 import {getCookie} from "cookies-next";
 import Swal from "sweetalert2";
@@ -14,21 +14,25 @@ export default function CommunityModify() {
 
     const router = useRouter();
 
+    const handleChange = useCallback((titleValue: string, contentValue: string) => {
+        title.onChange({ target: { value: titleValue } });
+        content.onChange({ target: { value: contentValue } });
+    }, [title, content]);
+
     useEffect(() => {
         const fetchCommunity = async () => {
             try {
                 //@ts-ignore
                 const data = await CommunityListDetail(BigInt(id));
                 if (data) {
-                    title.onChange({target: {value: data.title}});
-                    content.onChange({target: {value: data.content}});
+                    handleChange(data.title, data.content);
                 }
             } catch (err) {
                 console.error('커뮤니티 글 가져오기 실패')
             }
         }
         fetchCommunity();
-    }, [id]);
+    }, [id, handleChange]);
 
     const handleClick = () => {
         if (id) {
